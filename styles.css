@@ -1,0 +1,923 @@
+:root {
+  --wine: #6c1f30;
+  --wine-dark: #2a0d16;
+  --rose: #c97978;
+  --cream: #f6eddf;
+  --paper: #fbf7f0;
+  --ink: #251b1c;
+  --muted: #736366;
+  --line: rgba(46, 25, 28, 0.16);
+  --shadow: 0 24px 80px rgba(55, 20, 28, 0.18);
+  --serif: "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+  --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 20%, rgba(201, 121, 120, 0.11), transparent 26rem),
+    var(--paper);
+  font-family: var(--sans);
+  text-rendering: optimizeLegibility;
+}
+
+body.locked {
+  height: 100vh;
+  overflow: hidden;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #f5b9a4;
+  outline-offset: 4px;
+}
+
+#confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  overflow: hidden;
+  color: var(--cream);
+  background:
+    linear-gradient(130deg, rgba(38, 9, 17, 0.97), rgba(108, 31, 48, 0.94)),
+    url("assets/nizhny-sunset.jpg") center / cover;
+  transition: opacity 0.7s ease, visibility 0.7s ease, transform 0.7s ease;
+}
+
+.gate::before,
+.gate::after {
+  position: absolute;
+  width: 42vw;
+  height: 42vw;
+  border: 1px solid rgba(255, 240, 218, 0.11);
+  border-radius: 50%;
+  content: "";
+}
+
+.gate::before {
+  top: -28vw;
+  right: -12vw;
+}
+
+.gate::after {
+  bottom: -31vw;
+  left: -11vw;
+}
+
+.gate.is-leaving {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.04);
+}
+
+.gate__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.14;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.gate__card {
+  position: relative;
+  width: min(820px, 100%);
+  padding: clamp(32px, 6vw, 74px);
+  border: 1px solid rgba(255, 245, 229, 0.24);
+  border-radius: 2px;
+  text-align: center;
+  background: rgba(44, 12, 22, 0.34);
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(16px);
+}
+
+.gate__stamp {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  padding: 8px 12px;
+  transform: rotate(4deg);
+  border: 1px solid rgba(255, 228, 206, 0.5);
+  border-radius: 50%;
+  color: rgba(255, 238, 220, 0.72);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  margin: 0 0 22px;
+  color: var(--wine);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.eyebrow--light,
+.gate .eyebrow {
+  color: #f1c7b5;
+}
+
+.gate h1 {
+  margin: 0 auto;
+  max-width: 700px;
+  font-family: var(--serif);
+  font-size: clamp(36px, 7vw, 70px);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.96;
+}
+
+.gate h1 em {
+  color: #f1ba9f;
+  font-weight: 400;
+}
+
+.gate__copy {
+  max-width: 480px;
+  margin: 28px auto;
+  color: rgba(255, 245, 232, 0.72);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.gate__fineprint {
+  margin: 14px 0 0;
+  color: rgba(255, 245, 232, 0.45);
+  font-size: 10px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  min-height: 52px;
+  padding: 15px 24px;
+  border: 0;
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.button--primary {
+  color: var(--wine-dark);
+  background: var(--cream);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.button--primary:hover {
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.25);
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 26px clamp(22px, 5vw, 78px) 28px;
+  overflow: hidden;
+  color: white;
+  background: url("assets/nizhny-sunset.jpg") center / cover;
+}
+
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(29, 8, 14, 0.83) 0%, rgba(40, 12, 18, 0.46) 48%, rgba(32, 8, 14, 0.08) 78%),
+    linear-gradient(0deg, rgba(24, 7, 12, 0.62), transparent 44%);
+}
+
+.topbar,
+.hero__content,
+.hero__caption {
+  position: relative;
+  z-index: 1;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.monogram {
+  font-family: var(--serif);
+  font-size: 19px;
+  letter-spacing: 0.05em;
+}
+
+.hero__content {
+  width: min(890px, 92%);
+  margin: auto 0;
+  padding: 80px 0 50px;
+}
+
+.hero h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(48px, 8.4vw, 112px);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 0.91;
+  text-wrap: balance;
+}
+
+.hero h2 span {
+  display: inline-block;
+  font-size: 0.55em;
+  transform: translateY(-0.15em) rotate(-6deg);
+}
+
+.hero__lead {
+  max-width: 540px;
+  margin: 28px 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.55;
+}
+
+.button--glass {
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  color: white;
+  background: rgba(255, 255, 255, 0.11);
+  backdrop-filter: blur(10px);
+}
+
+.button--glass:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.hero__caption {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.section {
+  position: relative;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(100px, 14vw, 190px) clamp(22px, 5vw, 64px);
+}
+
+.section__number {
+  position: absolute;
+  top: 48px;
+  right: clamp(22px, 5vw, 64px);
+  color: rgba(108, 31, 48, 0.12);
+  font-family: var(--serif);
+  font-size: clamp(76px, 11vw, 140px);
+  line-height: 1;
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(310px, 0.72fr);
+  align-items: center;
+  gap: clamp(54px, 9vw, 130px);
+}
+
+.intro__copy h2,
+.section__header h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(42px, 6.5vw, 78px);
+  font-weight: 400;
+  letter-spacing: -0.052em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.intro__copy > p:last-child {
+  max-width: 650px;
+  margin: 34px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.ticket {
+  padding: 28px;
+  transform: rotate(2.5deg);
+  color: var(--cream);
+  background: var(--wine);
+  box-shadow: var(--shadow);
+}
+
+.ticket__top,
+.ticket__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 10px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.ticket__top {
+  padding-bottom: 18px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.32);
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.ticket__date {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 26px 0;
+}
+
+.ticket__date strong {
+  font-family: var(--serif);
+  font-size: clamp(66px, 8vw, 98px);
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  line-height: 0.8;
+}
+
+.ticket__date span {
+  color: #e9bca9;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.ticket__row {
+  padding: 14px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.ticket__row span {
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.ticket__row strong {
+  text-align: right;
+}
+
+.ticket__code {
+  margin-top: 24px;
+  padding: 16px 0 4px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.32);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 32px;
+  letter-spacing: 0.05em;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.plan {
+  max-width: none;
+  background: #efe3d3;
+}
+
+.plan > * {
+  max-width: 1112px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section__header {
+  margin-bottom: 66px;
+}
+
+.plan__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.plan-card {
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+  border: 1px solid rgba(61, 35, 39, 0.12);
+  background: rgba(255, 251, 245, 0.64);
+}
+
+.plan-card--accent {
+  color: var(--cream);
+  background: var(--wine);
+}
+
+.plan-card__time {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.plan-card--accent .plan-card__time,
+.plan-card--accent p {
+  color: rgba(255, 244, 229, 0.64);
+}
+
+.plan-card__icon {
+  margin: auto 0;
+  font-family: var(--serif);
+  font-size: 78px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.plan-card h3 {
+  margin: 0 0 12px;
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+.plan-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.sunset-break {
+  min-height: 72vh;
+  display: grid;
+  place-items: center;
+  padding: 40px 22px;
+  color: white;
+  text-align: center;
+  background:
+    linear-gradient(rgba(35, 8, 14, 0.19), rgba(35, 8, 14, 0.48)),
+    url("assets/nizhny-sunset.jpg") center / cover fixed;
+}
+
+.sunset-break p {
+  margin: 0 0 24px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.sunset-break blockquote {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(38px, 6vw, 76px);
+  font-style: italic;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+}
+
+.memories {
+  padding-bottom: clamp(130px, 18vw, 230px);
+}
+
+.polaroids {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 34px;
+  padding: 40px 0;
+}
+
+.polaroid {
+  width: min(31vw, 320px);
+  margin: 0 -18px;
+  padding: 12px 12px 22px;
+  background: #fffdfa;
+  box-shadow: 0 20px 60px rgba(60, 32, 35, 0.18);
+}
+
+.polaroid--left {
+  transform: rotate(-8deg) translateY(20px);
+}
+
+.polaroid--center {
+  z-index: 2;
+  transform: rotate(2deg) translateY(-20px);
+}
+
+.polaroid--right {
+  transform: rotate(8deg) translateY(28px);
+}
+
+.polaroid__placeholder {
+  aspect-ratio: 4 / 5;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  background:
+    linear-gradient(140deg, rgba(108, 31, 48, 0.86), rgba(201, 121, 120, 0.64)),
+    url("assets/nizhny-sunset.jpg") center / cover;
+}
+
+.polaroid__placeholder span {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2.4vw, 28px);
+  font-style: italic;
+  line-height: 1.1;
+}
+
+.polaroid figcaption {
+  padding-top: 16px;
+  font-family: var(--serif);
+  font-size: 17px;
+  font-style: italic;
+  text-align: center;
+}
+
+.faq {
+  max-width: none;
+  color: var(--cream);
+  background: var(--wine-dark);
+}
+
+.faq > * {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq .section__number {
+  color: rgba(255, 255, 255, 0.06);
+}
+
+.faq .eyebrow {
+  color: #dfa58f;
+}
+
+.faq__list {
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.faq details {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 2px;
+  list-style: none;
+  font-family: var(--serif);
+  font-size: clamp(23px, 3vw, 34px);
+  cursor: pointer;
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq__plus {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+}
+
+.faq__plus::before,
+.faq__plus::after {
+  position: absolute;
+  top: 11px;
+  left: 2px;
+  width: 20px;
+  height: 1px;
+  background: #dfa58f;
+  content: "";
+  transition: transform 0.25s ease;
+}
+
+.faq__plus::after {
+  transform: rotate(90deg);
+}
+
+.faq details[open] .faq__plus::after {
+  transform: rotate(0);
+}
+
+.faq details p {
+  max-width: 730px;
+  margin: -4px 0 30px;
+  color: rgba(255, 245, 233, 0.63);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.rsvp {
+  position: relative;
+  min-height: 92vh;
+  display: grid;
+  place-items: center;
+  padding: 110px 22px;
+  overflow: hidden;
+  color: var(--cream);
+  text-align: center;
+  background: var(--wine);
+}
+
+.rsvp__halo {
+  position: absolute;
+  width: min(76vw, 800px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 238, 217, 0.17);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 10vw rgba(255, 238, 217, 0.025),
+    0 0 0 20vw rgba(255, 238, 217, 0.018);
+}
+
+.rsvp__content {
+  position: relative;
+  z-index: 1;
+}
+
+.rsvp h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 0.94;
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: clamp(26px, 6vw, 72px);
+  margin: 48px 0;
+}
+
+.countdown div {
+  display: grid;
+  gap: 6px;
+}
+
+.countdown strong {
+  font-family: var(--serif);
+  font-size: clamp(34px, 5vw, 58px);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.countdown span {
+  color: rgba(255, 241, 221, 0.55);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.rsvp__actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.button--cream {
+  color: var(--wine);
+  background: var(--cream);
+}
+
+.button--disabled {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.07);
+  cursor: not-allowed;
+}
+
+.rsvp__note {
+  min-height: 20px;
+  margin: 18px 0 0;
+  color: rgba(255, 241, 221, 0.54);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.rsvp__note.is-success {
+  color: #ffe0d0;
+  font-size: 13px;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px clamp(22px, 5vw, 64px);
+  color: var(--muted);
+  background: var(--paper);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 820px) {
+  .gate__stamp {
+    display: none;
+  }
+
+  .hero {
+    background-position: 58% center;
+  }
+
+  .hero__shade {
+    background:
+      linear-gradient(90deg, rgba(29, 8, 14, 0.82), rgba(40, 12, 18, 0.24)),
+      linear-gradient(0deg, rgba(24, 7, 12, 0.66), transparent 50%);
+  }
+
+  .intro {
+    grid-template-columns: 1fr;
+  }
+
+  .ticket {
+    width: min(430px, 94%);
+    justify-self: center;
+  }
+
+  .plan__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-card {
+    min-height: 280px;
+  }
+
+  .sunset-break {
+    background-attachment: scroll;
+  }
+}
+
+@media (max-width: 560px) {
+  .gate {
+    padding: 12px;
+  }
+
+  .gate__card {
+    padding: 42px 22px 32px;
+  }
+
+  .gate__copy {
+    margin: 22px auto;
+    font-size: 14px;
+  }
+
+  .topbar__date {
+    max-width: 190px;
+    text-align: right;
+    line-height: 1.5;
+  }
+
+  .hero__content {
+    width: 100%;
+  }
+
+  .hero__caption span:last-child {
+    display: none;
+  }
+
+  .section__number {
+    top: 30px;
+  }
+
+  .ticket {
+    width: 100%;
+    padding: 22px;
+  }
+
+  .ticket__row {
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+
+  .polaroids {
+    min-height: 650px;
+    flex-direction: column;
+  }
+
+  .polaroid {
+    width: 220px;
+    margin: -65px 0 0;
+  }
+
+  .polaroid:first-child {
+    margin-top: 0;
+  }
+
+  .polaroid--left {
+    transform: rotate(-8deg) translateX(-28px);
+  }
+
+  .polaroid--center {
+    transform: rotate(3deg) translateX(22px);
+  }
+
+  .polaroid--right {
+    transform: rotate(-3deg) translateX(-8px);
+  }
+
+  .faq summary {
+    padding: 23px 0;
+  }
+
+  .rsvp__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .rsvp__actions .button {
+    width: min(310px, 88vw);
+  }
+
+  footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

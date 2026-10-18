@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#6c1f30" />
+    <meta
+      name="description"
+      content="Очень важное приглашение для Татьяны на 30–31 октября в Нижнем Новгороде."
+    />
+    <meta property="og:title" content="Татьяна, вам поступило приглашение" />
+    <meta
+      property="og:description"
+      content="30–31 октября · Нижний Новгород · дело чрезвычайной важности"
+    />
+    <meta property="og:image" content="assets/nizhny-sunset.jpg" />
+    <title>Очень важное приглашение для Татьяны</title>
+    <link rel="preload" href="assets/nizhny-sunset.jpg" as="image" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="content.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body class="locked">
+    <canvas id="confetti" aria-hidden="true"></canvas>
+
+    <section class="gate" id="gate" aria-labelledby="gate-title">
+      <div class="gate__grain" aria-hidden="true"></div>
+      <div class="gate__card">
+        <span class="gate__stamp">Лично · Срочно · Красиво</span>
+        <p class="eyebrow">Входящее № 30/10</p>
+        <h1 id="gate-title">
+          Татьяна, вам поступило<br />
+          <em>чрезвычайно важное</em> уведомление
+        </h1>
+        <p class="gate__copy">
+          Система почти уверена, что нашла нужного человека.
+          Осталось подтвердить личность.
+        </p>
+        <button class="button button--primary" id="open-invitation" type="button">
+          Да, это я
+          <span aria-hidden="true">→</span>
+        </button>
+        <p class="gate__fineprint">Нажимая кнопку, вы соглашаетесь на хороший вечер.</p>
+      </div>
+    </section>
+
+    <main id="main-content" aria-hidden="true">
+      <section class="hero">
+        <div class="hero__shade" aria-hidden="true"></div>
+        <nav class="topbar" aria-label="Краткая информация">
+          <span class="monogram">М × Т</span>
+          <span class="topbar__date">30–31 октября · Нижний Новгород</span>
+        </nav>
+
+        <div class="hero__content">
+          <p class="eyebrow eyebrow--light">Статус: приглашение доставлено</p>
+          <h2>Ты официально приглашена<br />на мой день рождения <span>🎉</span></h2>
+          <p class="hero__lead">
+            Отказ не запрещён, но заметно ухудшит наши отношения.
+          </p>
+          <a class="button button--glass" href="#details">
+            Изучить предложение
+            <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+
+        <div class="hero__caption">
+          <span>Нижний Новгород</span>
+          <span>Встретим закат вместе</span>
+        </div>
+      </section>
+
+      <section class="section intro" id="details">
+        <div class="section__number" aria-hidden="true">01</div>
+        <div class="intro__copy reveal">
+          <p class="eyebrow">Коротко о главном</p>
+          <h2>Два дня, один красивый город и очень хороший повод быть рядом.</h2>
+          <p>
+            План подозрительно приятный: вкусно есть, много гулять, смотреть на
+            Нижний сверху вниз и обязательно поймать тот самый октябрьский закат.
+          </p>
+        </div>
+
+        <aside class="ticket reveal" aria-label="Детали поездки">
+          <div class="ticket__top">
+            <span>Приглашение</span>
+            <span>№ 3010</span>
+          </div>
+          <div class="ticket__date">
+            <strong>30–31</strong>
+            <span>октября<br />2026</span>
+          </div>
+          <div class="ticket__row">
+            <span>Куда</span>
+            <strong>Нижний Новгород</strong>
+          </div>
+          <div class="ticket__row">
+            <span>С кем</span>
+            <strong>Со мной, разумеется</strong>
+          </div>
+          <div class="ticket__code" aria-hidden="true">|||| ||| || |||| |||</div>
+        </aside>
+      </section>
+
+      <section class="section plan">
+        <div class="section__number" aria-hidden="true">02</div>
+        <header class="section__header reveal">
+          <p class="eyebrow">Предварительная программа</p>
+          <h2>Планы, в которых всё прекрасно</h2>
+        </header>
+
+        <div class="plan__grid">
+          <article class="plan-card reveal">
+            <span class="plan-card__time">Пункт 01</span>
+            <span class="plan-card__icon" aria-hidden="true">✦</span>
+            <h3>Вкусно кушать</h3>
+            <p>Найти место, ради которого захочется отменить все диеты и заказать десерт.</p>
+          </article>
+          <article class="plan-card reveal">
+            <span class="plan-card__time">Пункт 02</span>
+            <span class="plan-card__icon" aria-hidden="true">↗</span>
+            <h3>Много гулять</h3>
+            <p>Улицы, набережные, виды — и маршрут, который можно менять по настроению.</p>
+          </article>
+          <article class="plan-card plan-card--accent reveal">
+            <span class="plan-card__time">Пункт 03 · обязательный</span>
+            <span class="plan-card__icon" aria-hidden="true">☀</span>
+            <h3>Встретить закат</h3>
+            <p>Красиво молчать, смеяться и запомнить момент, когда город станет золотым.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="sunset-break" aria-label="Вид на Нижний Новгород">
+        <div class="sunset-break__inner reveal">
+          <p>Главный пункт маршрута</p>
+          <blockquote>«Остановиться там, где красиво.<br />И никуда не спешить»</blockquote>
+        </div>
+      </section>
+
+      <section class="section memories">
+        <div class="section__number" aria-hidden="true">03</div>
+        <header class="section__header reveal">
+          <p class="eyebrow">Здесь появятся наши фотографии</p>
+          <h2>Немного доказательств,<br />что идея точно хорошая</h2>
+        </header>
+
+        <div class="polaroids" aria-label="Места для фотографий">
+          <figure class="polaroid polaroid--left reveal">
+            <div class="polaroid__placeholder"><span>твоя любимая<br />фотография</span></div>
+            <figcaption>смеёмся красиво</figcaption>
+          </figure>
+          <figure class="polaroid polaroid--center reveal">
+            <div class="polaroid__placeholder"><span>наше фото<br />сюда</span></div>
+            <figcaption>главные герои</figcaption>
+          </figure>
+          <figure class="polaroid polaroid--right reveal">
+            <div class="polaroid__placeholder"><span>ещё один<br />хороший момент</span></div>
+            <figcaption>продолжение следует</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section faq">
+        <div class="section__number" aria-hidden="true">04</div>
+        <header class="section__header reveal">
+          <p class="eyebrow">Часто задаваемые вопросы</p>
+          <h2>Всё, что важно знать заранее</h2>
+        </header>
+
+        <div class="faq__list reveal">
+          <details name="faq">
+            <summary>
+              <span>Нужно ли приносить подарок?</span>
+              <span class="faq__plus" aria-hidden="true"></span>
+            </summary>
+            <p>Главный подарок уже читает этот сайт.</p>
+          </details>
+          <details name="faq">
+            <summary>
+              <span>Можно опоздать?</span>
+              <span class="faq__plus" aria-hidden="true"></span>
+            </summary>
+            <p>
+              Можно, но именинник будет драматично смотреть на часы и искать
+              приглашённую глазами в толпе.
+            </p>
+          </details>
+          <details name="faq">
+            <summary>
+              <span>Что надеть?</span>
+              <span class="faq__plus" aria-hidden="true"></span>
+            </summary>
+            <p>
+              Выглядеть на все сто — но так, чтобы после красивого ужина хотелось
+              ещё долго гулять по городу. Эффектно, тепло и удобно: Нижний оценит,
+              а я тем более.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section class="rsvp" id="rsvp">
+        <div class="rsvp__halo" aria-hidden="true"></div>
+        <div class="rsvp__content reveal">
+          <p class="eyebrow eyebrow--light">Остался один маленький шаг</p>
+          <h2>Ну что, Татьяна,<br />едем встречать закат?</h2>
+
+          <div class="countdown" aria-label="Обратный отсчёт до 30 октября">
+            <div><strong id="days">—</strong><span>дней</span></div>
+            <div><strong id="hours">—</strong><span>часов</span></div>
+            <div><strong id="minutes">—</strong><span>минут</span></div>
+          </div>
+
+          <div class="rsvp__actions">
+            <button class="button button--cream" id="yes-button" type="button">
+              Буду <span aria-hidden="true">❤️</span>
+            </button>
+            <button
+              class="button button--disabled"
+              type="button"
+              disabled
+              aria-disabled="true"
+              title="Система временно не принимает такие ответы"
+            >
+              Не смогу, прости
+            </button>
+          </div>
+          <p class="rsvp__note" id="rsvp-note" aria-live="polite">
+            Второй вариант предусмотрен исключительно для красоты интерфейса.
+          </p>
+        </div>
+      </section>
+
+      <footer>
+        <span>Сделано с намерениями</span>
+        <span>30–31.10.2026 · НН</span>
+      </footer>
+    </main>
+  </body>
+</html>
